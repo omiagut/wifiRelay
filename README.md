@@ -1,10 +1,10 @@
-# wifiRelay
+wifiRelay
 a way to create an electrical relay with a wifi command.
 using IDE :
 - Arduino (ino, h, cpp files)
 - gedit (html files)
 - freeCad (stl files)
-- kicad (and gimp, to provide a .pdf file for the PCB)
+- kicad (and gimp, to provide a .pdf file for printing the PCB)
 
 wifiRealy.ino drives a relay from a web client, Firefox, Chrome, Midori and maybe Edge (I only use Linux Debian)
 Before using wifiRelay.ino, ssid and password values must be written in the EEPROM memory by eepromPutEsp.ino.
@@ -13,16 +13,18 @@ Then C_Eprom class (c_eprom.h, c_eprom.cpp) reads those values for wifiRelay.ino
 webPage.html and boxPage.html are in the data directory, and uploaded in the SPIFFS memory.
 
 eepromPutEsp.ino must provide values to connect as an Access Point (WIFI_AP mode)
- - an ssid like "192.168.x.x", for example 192.168.4.10
- - a password 8..31 bytes
+ - ssid like "192.168.x.x", for example 192.168.4.10
+ - password 8..31 bytes
 With boxPage.html, the user may change these values. He can change his password, or change for a WIFI_STA mode connexion. The esp8266 becomes a station depending on his box.	In this case, the user must find by himself the address he has be given by his box with the command line 
-user@user:~$ nmap -sP 192.168.1.* (if the box has 192.168.1.0 address) or 192.168.*.* (wil takes more time).
+user@user:~$ nmap -sP 192.168.1.* (if the box has 192.168.1.0 address) or 192.168.*.* (wil takes more time) or a corresponding command line with Mac Os or windows.
+
+As EEPROM memory is situated at the end of SPIFFS memory, use the tool "flash size 1MB FS 64KB" to flash eepromPutEsp and wifiRelay.
 
 wifiRelay setup
-- 1 tries to connect in WIFI_AP mode with eepromPutEsp.ino values
+- 1 tries to connect in WIFI_AP mode with eepromPutEsp.ino ssid.
 - 2 if it fails (the ssid is not the original one) , it tries to connect in WIFI_STA mode
 - 3 if it fails, whatever the reason, C_Eprom takes the eepromPutEsp.ino values back and the esp8266 is connected as an Access Point.
-With this method, you ensure a connection, as closed as possible to what the user expects.
+With this method, you ensure a connexion, as closed as possible to what the user expects.
 
 On and Off buttons in webPage.html allow to switch the relay on or off.
 
