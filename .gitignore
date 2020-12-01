@@ -1,0 +1,11 @@
+#Types de fichiers à ne pas prendre en compte
+*.bak
+*.kicad_pcb
+*.kicad_pcb-bak
+*.lib
+*.net
+*.pro
+*.sch
+*.svg
+*.xcf
+
